@@ -25,7 +25,7 @@ def get_link(article):
 def get_blog_articles():
     filename = 'codeup_blog_articles.json'
     if os.path.isfile(filename):
-        return pd.read_csv(filename)
+        return pd.read_json(filename)
     
     else:
         article_list=[]

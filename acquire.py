@@ -49,3 +49,31 @@ def get_blog_articles():
 
 
 # Great, this function is working now
+
+# let's not forget to comment the code
+
+
+def get_news_articles():
+    filename = 'inshort_news_articles.json'
+    if os.path.isfile(filename):
+        return pd.read_csv(filename)
+    else:
+        base_url = 'https://inshorts.com/en/read/'
+        sections = ["business","sports","technology","entertainment"]
+        articles = []
+        for section in sections:
+            response = requests.get(base_url + section, headers={'user-agent': 'ds_student'})
+            soup = BeautifulSoup(response.text)
+            cards = soup.select('.news-card')
+            for card in cards:
+                title = card.find('span',itemprop='headline').text
+                author = card.find('span', class_="author").text
+                content = card.find('div', itemprop="articleBody").text
+                article = ({'section': section, 
+                            'title': title, 
+                            'author': author, 
+                            'content': content})
+                articles.append(article)
+        df = pd.DataFrame(articles)
+        df.to_json('inshort_news_articles.json')
+    return df

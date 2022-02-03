@@ -16,3 +16,9 @@ def basic_clean(df):
         .str.decode('utf-8', 'ignore')\
         .replace(r"[^a-z0-9'\s]", '',regex=True)
     return df
+
+
+def tokenize(df):
+    for col in df.columns:
+        df[col] = df[col].apply(tokenizer.tokenize)
+    return df

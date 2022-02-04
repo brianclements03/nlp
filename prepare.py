@@ -33,3 +33,13 @@ def stem(df,col):
     stems = df[col].apply(lambda row: [ps.stem(word) for word in row])
     df['stemmed'] = stems.str.join(' ')
     return df
+
+
+def remove_stopwords(df,col,extra_words=[],exclude_words=['no','not']):
+    stopword_list = stopwords.words('english')
+    stopword_list.extend(extra_words)
+    stopword_list = set(stopword_list) - set(exclude_words)
+    words = df[col].str.split()
+    filtered_words = words.apply(lambda row: [word for word in row if word not in stopword_list])
+    df['stopwords_removed' + col] = filtered_words.str.join(' ')
+    return df

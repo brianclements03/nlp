@@ -65,7 +65,7 @@ def get_blog_articles(cached=False):
         # request the info using .get
         response = requests.get('https://codeup.com/blog/', headers={'user-agent': 'Codeup DS Hopper'})
         # make a BS object
-        soup = BeautifulSoup(response.text)
+        soup = BeautifulSoup(response.text, features="lxml")
         # create an 'articles' variable on the h2 tag, class defined in the method
         articles = soup.find_all('h2', class_ = 'entry-title')
         # for loop running through every article in the articles list
@@ -75,7 +75,7 @@ def get_blog_articles(cached=False):
             # .get method for every article
             article_response = requests.get(link, headers={'user-agent': 'Codeup DS Hopper'})
             # BS object for every response
-            article_soup = BeautifulSoup(article_response.text)
+            article_soup = BeautifulSoup(article_response.text, features="lxml")
             # define title by finding the 'h1' tag and class as defined, converted to text
             title = article_soup.find('h1',class_='entry-title').text
             # define date_published by finding the 'span' tag and class as defined, converted to text
@@ -131,7 +131,7 @@ def get_news_articles(cached=False):
             # .get method for every section
             response = requests.get(base_url + section, headers={'user-agent': 'ds_student'})
             # BeautifulSoup object for every response
-            soup = BeautifulSoup(response.text)
+            soup = BeautifulSoup(response.text, features="lxml")
             # create a card for every article in the section by searching for '.news-card'
             cards = soup.select('.news-card')
             # for loop for every card, extracting the variables I need

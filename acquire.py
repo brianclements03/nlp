@@ -157,7 +157,7 @@ def get_news_articles(cached=False):
         # convert the resulting list to a Pandas DataFrame
         df = pd.DataFrame(articles)
         # define the datetime. THIS IS NOT CURRENTLY USEFUL BUT WILL BE WHEN AFTER I MAKE A JSON CONCATENATOR FUNCTION
-        today = strftime('%Y-%m-%d')
+#         today = strftime('%Y-%m-%d')
         # write the resulting DF to json format with date acquired tag
         # df.to_json(f'inshort_news_articles-{today}.json')
         df.to_json(f'inshort_news_articles.json')
